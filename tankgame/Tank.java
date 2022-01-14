@@ -12,6 +12,7 @@ public class Tank {
     private int direct;//坦克方向
     private int speed = 2;
     boolean isLive = true;
+    String S;
 
     public int getSpeed() {
         return speed;
