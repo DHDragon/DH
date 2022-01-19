@@ -13,6 +13,78 @@ public class EnemyTank extends Tank implements Runnable {
     //使用Vector集合，保存多个shot
     Vector<Shot> shots = new Vector<>();
     boolean isLive = true;
+    //增加成员，EnemyTank 可以得到敌人坦克的Vector
+    //Vector<EnemyTank>在MyPanel中
+    Vector<EnemyTank> enemyTanks = new Vector<>();
+
+    /**
+     * @param enemyTanks 提供一个方法，将MyPanel中的成员 Vector<EnemyTank> enemyTanks = new Vector<>();
+     *                   设置到EnemyTank 的成员 enemyTanks
+     */
+    public void setEnemyTanks(Vector<EnemyTank> enemyTanks) {
+        this.enemyTanks = enemyTanks;
+    }
+
+    //判断当前坦克是否和其他坦克重叠
+    public boolean isTouchEnemyTank() {
+        //判断当前（this）敌方坦克的方向
+        switch (this.getDirect()) {
+            case 0:
+                //让当前敌方坦克和所有敌方坦克比较
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    //取出一个敌方坦克
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        //上/下
+                        /**
+                         *1.找到X\Y范围
+                         * 2.在这范围内的话就是碰撞了
+                         */
+                        if (enemyTank.getDirect() == 0 || enemyTank.getDirect() == 1) {
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 40
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                            if (this.getX() + 40 >= enemyTank.getX()
+                                    && this.getX() + 40 <= enemyTank.getX() + 40
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                        }
+                        //左/右
+                        if (enemyTank.getDirect() == 2 || enemyTank.getDirect() == 3) {
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 60
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                            if (this.getX() + 40 >= enemyTank.getX()
+                                    && this.getX() + 40 <= enemyTank.getX() + 60
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                break;
+            case 1:
+
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+
+        }
+
+
+        return true;
+    }
 
     public EnemyTank(int x, int y) {
         super(x, y);
@@ -45,7 +117,6 @@ public class EnemyTank extends Tank implements Runnable {
                 shots.add(shot);
                 new Thread(shot).start();
             }
-
 
 
             switch (getDirect()) {
