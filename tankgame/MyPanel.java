@@ -37,6 +37,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         //初始化敌方
         for (int i = 0; i < enemyTankSize; i++) {
             EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
+            //将 enemyTanks 设置给 enemyTank
+            enemyTank.setEnemyTanks(enemyTanks);
+            //初始化敌方方向
             enemyTank.setDirect(1);
             //启动敌方坦克线程，让他动起来
             new Thread(enemyTank).start();
@@ -61,12 +64,27 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     }
 
+    //画出积分榜位置和信息
+    public void showInfo(Graphics g){
+        //画出玩家成绩
+        g.setColor(Color.BLACK);
+        Font font = new Font("宋体", Font.BOLD, 25);
+        g.setFont(font);
+
+        g.drawString("积分",1020,30);
+        drawTank(1020,60,g,0,0);
+        g.setColor(Color.BLACK);
+        g.drawString(Recorder.getJF() + "",1080,100);
+
+    }
+
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         //填充矩形，默认黑色，定义游戏区域X\Y最大值
         g.fillRect(0, 0, 1000, 750);
+        showInfo(g);
 
         //绘制自己的坦克-封装方法
         if (hero.isLive && hero != null) {
@@ -234,6 +252,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     s.isLive = false;
                     //击中后需要将移除掉
                     enemyTanks.remove(enemyTank);
+
+                    //击中敌方坦克加分
+                    if (enemyTank instanceof EnemyTank){
+                        Recorder.addJF();
+                    }
                     //击中坦克生成一个bomb对象
                     Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
                     //将bomb对象加入到炸弹集合中
@@ -246,6 +269,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     enemyTank.isLive = false;
                     s.isLive = false;
                     enemyTanks.remove(enemyTank);
+
+                    if (enemyTank instanceof EnemyTank){
+                        Recorder.addJF();
+                    }
+
                     //击中坦克生成一个bomb对象
                     Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
                     //将bomb对象加入到炸弹集合中

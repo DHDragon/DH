@@ -73,17 +73,137 @@ public class EnemyTank extends Tank implements Runnable {
                 }
                 break;
             case 1:
-
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    //取出一个敌方坦克
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        //上/下
+                        /**
+                         *1.找到X\Y范围
+                         * 2.在这范围内的话就是碰撞了
+                         */
+                        if (enemyTank.getDirect() == 0 || enemyTank.getDirect() == 1) {
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 40
+                                    && this.getY() + 60 >= enemyTank.getY()
+                                    && this.getY() + 60 <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                            if (this.getX() + 40 >= enemyTank.getX()
+                                    && this.getX() + 40 <= enemyTank.getX() + 40
+                                    && this.getY() + 60 >= enemyTank.getY()
+                                    && this.getY() + 60 <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                        }
+                        //左/右
+                        if (enemyTank.getDirect() == 2 || enemyTank.getDirect() == 3) {
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 60
+                                    && this.getY() + 60 >= enemyTank.getY()
+                                    && this.getY() + 60 <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                            if (this.getX() + 40 >= enemyTank.getX()
+                                    && this.getX() + 40 <= enemyTank.getX() + 60
+                                    && this.getY() + 60 >= enemyTank.getY()
+                                    && this.getY() + 60 <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                        }
+                    }
+                }
                 break;
             case 2:
+                //让当前敌方坦克和所有敌方坦克比较
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    //取出一个敌方坦克
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        //上/下
+                        /**
+                         *1.找到X\Y范围
+                         * 2.在这范围内的话就是碰撞了
+                         */
+                        if (enemyTank.getDirect() == 0 || enemyTank.getDirect() == 1) {//敌方坦克上下
+                            if (this.getX()  >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 40
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 40
+                                    && this.getY() + 40 >= enemyTank.getY()
+                                    && this.getY() + 40 <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                        }
+                        //左/右
+                        if (enemyTank.getDirect() == 2 || enemyTank.getDirect() == 3) {//敌方坦克左右
+                            //当前坦克角
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 60
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                            if (this.getX() >= enemyTank.getX()
+                                    && this.getX() <= enemyTank.getX() + 60
+                                    && this.getY() + 40 >= enemyTank.getY()
+                                    && this.getY() + 40 <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                        }
+                    }
+                }
                 break;
             case 3:
+                //让当前敌方坦克和所有敌方坦克比较
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    //取出一个敌方坦克
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        //上/下
+                        /**
+                         *1.找到X\Y范围
+                         * 2.在这范围内的话就是碰撞了
+                         */
+                        if (enemyTank.getDirect() == 0 || enemyTank.getDirect() == 1) {//敌方坦克上下
+                            if (this.getX() + 60 >= enemyTank.getX()
+                                    && this.getX() + 60 <= enemyTank.getX() + 40
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                            if (this.getX() + 60 >= enemyTank.getX()
+                                    && this.getX() + 60 <= enemyTank.getX() + 40
+                                    && this.getY() + 40 >= enemyTank.getY()
+                                    && this.getY() + 40 <= enemyTank.getY() + 60) {
+                                return true;
+                            }
+                        }
+                        //左/右
+                        if (enemyTank.getDirect() == 2 || enemyTank.getDirect() == 3) {//敌方坦克左右
+                            //当前坦克右上角
+                            if (this.getX() + 60 >= enemyTank.getX()
+                                    && this.getX() + 60 <= enemyTank.getX() + 60
+                                    && this.getY() >= enemyTank.getY()
+                                    && this.getY() <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                            if (this.getX() + 60 >= enemyTank.getX()
+                                    && this.getX() + 60 <= enemyTank.getX() + 60
+                                    && this.getY() + 40 >= enemyTank.getY()
+                                    && this.getY() + 40 <= enemyTank.getY() + 40) {
+                                return true;
+                            }
+                        }
+                    }
+                }
                 break;
-
         }
-
-
-        return true;
+        return false;
     }
 
     public EnemyTank(int x, int y) {
@@ -118,11 +238,11 @@ public class EnemyTank extends Tank implements Runnable {
                 new Thread(shot).start();
             }
 
-
+            //判断不越界，不重叠
             switch (getDirect()) {
                 case 0:
                     for (int i = 0; i < 30; i++) {
-                        if (getY() > 0) {
+                        if (getY() > 0 && !isTouchEnemyTank()) {
                             moveUp();
                         }
                         try {
@@ -134,7 +254,7 @@ public class EnemyTank extends Tank implements Runnable {
                     break;
                 case 1:
                     for (int i = 0; i < 30; i++) {
-                        if (getY() + 60 < 750) {
+                        if (getY() + 60 < 750 && !isTouchEnemyTank()) {
                             moveDown();
                         }
                         try {
@@ -146,7 +266,7 @@ public class EnemyTank extends Tank implements Runnable {
                     break;
                 case 2:
                     for (int i = 0; i < 30; i++) {
-                        if (getX() > 0) {
+                        if (getX() > 0 && !isTouchEnemyTank()) {
                             moveLeft();
                         }
                         try {
@@ -158,7 +278,7 @@ public class EnemyTank extends Tank implements Runnable {
                     break;
                 case 3:
                     for (int i = 0; i < 30; i++) {
-                        if (getX() + 90 < 1000) {
+                        if (getX() + 90 < 1000 && !isTouchEnemyTank()) {
                             moveRight();
                         }
                         try {
